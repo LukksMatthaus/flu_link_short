@@ -1,30 +1,32 @@
+import 'package:flu_link_short/controllers/signupcontroller.dart';
+import 'package:flu_link_short/pages/all/login.dart';
+import 'package:flu_link_short/pages/all/singup.dart';
+import 'package:flu_link_short/pages/all/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-
-import 'modules/mainModule.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
+import 'package:get/route_manager.dart';
 
 void main() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarBrightness: Brightness.light,
-    systemNavigationBarColor: Colors.black,
-  ));
-  runApp(ModularApp(
-    module: InitialModule(),
-  ));
+  runApp(MyApp());
 }
 
-class AppWidget extends StatelessWidget {
+class MyApp extends StatelessWidget {
+  final SignUpController controller = Get.put(SignUpController());
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      // set your initial route
-      initialRoute: "/",
-      // add Modular to manage the routing system
-      onGenerateRoute: Modular.generateRoute,
-      navigatorKey: Modular.navigatorKey,
+      title: 'Short Link',
+      initialRoute: '/',
+      localizationsDelegates: [GlobalMaterialLocalizations.delegate],
+      supportedLocales: [const Locale('pt')],
+      getPages: [
+        GetPage(name: '/', page: () => WelcomePage()),
+        GetPage(name: '/signup', page: () => SignUpPage()),
+        GetPage(name: '/login', page: () => Loginpage())
+      ],
     );
   }
 }

@@ -1,6 +1,8 @@
+import 'package:flu_link_short/controllers/signupcontroller.dart';
 import 'package:flu_link_short/ui/bezierContainer.dart';
+import 'package:flu_link_short/ui/gradient_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/get.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -8,10 +10,11 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  SignUpController signupController = Get.find();
   Widget _backButton() {
     return InkWell(
       onTap: () {
-        Modular.to.pop();
+        Get.back();
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
@@ -29,7 +32,8 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _entryField(String title, {bool isPassword = false}) {
+  Widget _entryField(String title,
+      {bool isPassword = false, Function onChanged}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -44,6 +48,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           TextField(
               obscureText: isPassword,
+              onChanged: onChanged,
               decoration: InputDecoration(
                   border: InputBorder.none,
                   fillColor: Color(0xfff3f3f4),
@@ -54,7 +59,11 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget _submitButton() {
-    return Container(
+    return GradientButton('Register Now', () {
+      signupController.register();
+    }, 0xfffbb448, 0xfff7892b, 250, 250);
+
+    /*Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(vertical: 15),
       alignment: Alignment.center,
@@ -75,13 +84,13 @@ class _SignUpPageState extends State<SignUpPage> {
         'Register Now',
         style: TextStyle(fontSize: 20, color: Colors.white),
       ),
-    );
+    ); */
   }
 
   Widget _loginAccountLabel() {
     return InkWell(
       onTap: () {
-        Modular.to.pushNamed('/login');
+        Get.toNamed('/login');
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 20),
@@ -124,10 +133,11 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField("Email"),
-        _entryField("Login"),
-        _entryField("Name"),
-        _entryField('Password', isPassword: true)
+        _entryField("Email", onChanged: signupController.setEmail),
+        _entryField("Login", onChanged: signupController.setLogin),
+        _entryField("Name", onChanged: signupController.setName),
+        _entryField('Password',
+            isPassword: true, onChanged: signupController.setPassword)
       ],
     );
   }

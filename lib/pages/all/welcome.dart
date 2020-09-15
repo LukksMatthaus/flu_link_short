@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/get.dart';
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -10,7 +10,7 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget _submitButton() {
     return InkWell(
       onTap: () {
-        Modular.to.pushNamed('/login');
+        Get.toNamed('/login');
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -37,7 +37,7 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget _signUpButton() {
     return InkWell(
       onTap: () {
-        Modular.to.pushNamed('/signup');
+        Get.toNamed('/signup');
       },
       child: Container(
         width: MediaQuery.of(context).size.width,

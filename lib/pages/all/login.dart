@@ -1,6 +1,6 @@
 import 'package:flu_link_short/ui/bezierContainer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/get.dart';
 
 class Loginpage extends StatefulWidget {
   @override
@@ -11,7 +11,7 @@ class _LoginpageState extends State<Loginpage> {
   Widget _backButton() {
     return InkWell(
       onTap: () {
-        Modular.to.pop();
+        Get.back();
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
@@ -81,7 +81,7 @@ class _LoginpageState extends State<Loginpage> {
   Widget _createAccountLabel() {
     return InkWell(
       onTap: () {
-        Modular.to.pushNamed('/signup');
+        Get.toNamed('/signup');
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 20),
