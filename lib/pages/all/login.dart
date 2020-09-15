@@ -1,4 +1,6 @@
+import 'package:flu_link_short/controllers/userController.dart';
 import 'package:flu_link_short/ui/bezierContainer.dart';
+import 'package:flu_link_short/ui/gradient_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,6 +10,7 @@ class Loginpage extends StatefulWidget {
 }
 
 class _LoginpageState extends State<Loginpage> {
+  UserController userController = Get.find();
   Widget _backButton() {
     return InkWell(
       onTap: () {
@@ -29,7 +32,8 @@ class _LoginpageState extends State<Loginpage> {
     );
   }
 
-  Widget _entryField(String title, {bool isPassword = false}) {
+  Widget _entryField(String title,
+      {bool isPassword = false, Function onChanged}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -44,6 +48,7 @@ class _LoginpageState extends State<Loginpage> {
           ),
           TextField(
               obscureText: isPassword,
+              onChanged: onChanged,
               decoration: InputDecoration(
                   border: InputBorder.none,
                   fillColor: Color(0xfff3f3f4),
@@ -54,7 +59,13 @@ class _LoginpageState extends State<Loginpage> {
   }
 
   Widget _submitButton() {
-    return Container(
+    return GradientButton('Login', () {
+      userController
+          .login()
+          .then((value) => {if (value == true) Get.toNamed('/home')});
+    }, 0xfffbb448, 0xfff7892b, 250, 250);
+
+    /*Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(vertical: 15),
       alignment: Alignment.center,
@@ -75,7 +86,7 @@ class _LoginpageState extends State<Loginpage> {
         'Login',
         style: TextStyle(fontSize: 20, color: Colors.white),
       ),
-    );
+    ); */
   }
 
   Widget _createAccountLabel() {
@@ -124,8 +135,9 @@ class _LoginpageState extends State<Loginpage> {
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField("Login"),
-        _entryField("Password", isPassword: true),
+        _entryField("Login", onChanged: userController.setLogin),
+        _entryField("Password",
+            isPassword: true, onChanged: userController.setPass),
       ],
     );
   }

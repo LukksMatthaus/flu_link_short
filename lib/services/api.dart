@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flu_link_short/models/userModel.dart';
 import 'package:http/http.dart' as http;
 
 const baseUrl = "http://secundario.logiquesistemas.com.br:8097/desafio-api";
@@ -23,6 +24,23 @@ class API {
           headers: header, body: jsonEncode(body));
       Map<String, dynamic> respJson = json.decode(resp.body);
       return respJson;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<UserModel> login(String login, String password) async {
+    var body = {'login': login, 'senha': password};
+    final header = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+    };
+    try {
+      final resp = await http.post(baseUrl + '/v1/auth/login',
+          headers: header, body: jsonEncode(body));
+      if (resp.statusCode == 200) {
+        print(resp.body);
+        return UserModel.fromJson(json.decode(resp.body));
+      }
     } catch (e) {
       throw Exception(e);
     }
