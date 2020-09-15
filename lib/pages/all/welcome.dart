@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -8,7 +9,9 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   Widget _submitButton() {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Modular.to.pushNamed('/login');
+      },
       child: Container(
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.symmetric(vertical: 13),
@@ -16,7 +19,11 @@ class _WelcomePageState extends State<WelcomePage> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(5)),
             boxShadow: <BoxShadow>[
-              BoxShadow(color: Color(0xffdf8e33).withAlpha(100), offset: Offset(2, 4), blurRadius: 8, spreadRadius: 2)
+              BoxShadow(
+                  color: Color(0xffdf8e33).withAlpha(100),
+                  offset: Offset(2, 4),
+                  blurRadius: 8,
+                  spreadRadius: 2)
             ],
             color: Colors.white),
         child: Text(
@@ -29,7 +36,9 @@ class _WelcomePageState extends State<WelcomePage> {
 
   Widget _signUpButton() {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Modular.to.pushNamed('/signup');
+      },
       child: Container(
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.symmetric(vertical: 13),
@@ -49,7 +58,8 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget _title() {
     return Text(
       'Link Short',
-      style: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.w700),
+      style: TextStyle(
+          fontSize: 30, color: Colors.white, fontWeight: FontWeight.w700),
     );
   }
 
@@ -62,9 +72,17 @@ class _WelcomePageState extends State<WelcomePage> {
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(5)),
-          boxShadow: <BoxShadow>[BoxShadow(color: Colors.grey.shade200, offset: Offset(2, 4), blurRadius: 5, spreadRadius: 2)],
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Colors.grey.shade200,
+                offset: Offset(2, 4),
+                blurRadius: 5,
+                spreadRadius: 2)
+          ],
           gradient: LinearGradient(
-              begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Color(0xfffbb448), Color(0xffe46b10)])),
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0xfffbb448), Color(0xffe46b10)])),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,

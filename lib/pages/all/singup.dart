@@ -2,12 +2,12 @@ import 'package:flu_link_short/ui/bezierContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class Loginpage extends StatefulWidget {
+class SignUpPage extends StatefulWidget {
   @override
-  _LoginpageState createState() => _LoginpageState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _LoginpageState extends State<Loginpage> {
+class _SignUpPageState extends State<SignUpPage> {
   Widget _backButton() {
     return InkWell(
       onTap: () {
@@ -72,16 +72,16 @@ class _LoginpageState extends State<Loginpage> {
               end: Alignment.centerRight,
               colors: [Color(0xfffbb448), Color(0xfff7892b)])),
       child: Text(
-        'Login',
+        'Register Now',
         style: TextStyle(fontSize: 20, color: Colors.white),
       ),
     );
   }
 
-  Widget _createAccountLabel() {
+  Widget _loginAccountLabel() {
     return InkWell(
       onTap: () {
-        Modular.to.pushNamed('/signup');
+        Modular.to.pushNamed('/login');
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 20),
@@ -91,14 +91,14 @@ class _LoginpageState extends State<Loginpage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Don\'t have an account ?',
+              'Already have an account ?',
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
             ),
             SizedBox(
               width: 10,
             ),
             Text(
-              'Register',
+              'Login',
               style: TextStyle(
                   color: Color(0xfff79c4f),
                   fontSize: 13,
@@ -124,8 +124,10 @@ class _LoginpageState extends State<Loginpage> {
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
+        _entryField("Email"),
         _entryField("Login"),
-        _entryField("Password", isPassword: true),
+        _entryField("Name"),
+        _entryField('Password', isPassword: true)
       ],
     );
   }
@@ -139,9 +141,10 @@ class _LoginpageState extends State<Loginpage> {
         child: Stack(
           children: [
             Positioned(
-                top: -height * .15,
-                right: -MediaQuery.of(context).size.width * .4,
-                child: BezierContainer()),
+              top: -MediaQuery.of(context).size.height * .15,
+              right: -MediaQuery.of(context).size.width * .4,
+              child: BezierContainer(),
+            ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: SingleChildScrollView(
@@ -151,19 +154,16 @@ class _LoginpageState extends State<Loginpage> {
                   children: <Widget>[
                     SizedBox(height: height * .2),
                     _title(),
-                    SizedBox(height: 50),
-                    _emailPasswordWidget(),
-                    SizedBox(height: 20),
-                    _submitButton(),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      alignment: Alignment.centerRight,
-                      child: Text('Forgot Password ?',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w500)),
+                    SizedBox(
+                      height: 50,
                     ),
-                    SizedBox(height: height * .055),
-                    _createAccountLabel(),
+                    _emailPasswordWidget(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    _submitButton(),
+                    SizedBox(height: height * .14),
+                    _loginAccountLabel(),
                   ],
                 ),
               ),
