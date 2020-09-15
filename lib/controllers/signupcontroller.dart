@@ -32,8 +32,11 @@ class SignUpController extends GetxController {
     print(password);
   }
 
-  Future<void> register() async {
+  Future<bool> register() async {
     var temp = await api.signup(name, email, login, password);
-    print(temp);
+    if (temp != null)
+      return Future<bool>.value(true);
+    else
+      return Future<bool>.value(false);
   }
 }

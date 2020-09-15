@@ -22,8 +22,13 @@ class API {
     try {
       final resp = await http.post(baseUrl + '/v1/auth/cadastrar/usuario',
           headers: header, body: jsonEncode(body));
-      Map<String, dynamic> respJson = json.decode(resp.body);
-      return respJson;
+      Map<String, dynamic> respJson;
+      if (resp.statusCode == 200) {
+        respJson = json.decode(resp.body);
+
+        return respJson;
+      }
+      return respJson = null;
     } catch (e) {
       throw Exception(e);
     }
@@ -40,7 +45,8 @@ class API {
       if (resp.statusCode == 200) {
         print(resp.body);
         return UserModel.fromJson(json.decode(resp.body));
-      }
+      } else
+        return null;
     } catch (e) {
       throw Exception(e);
     }

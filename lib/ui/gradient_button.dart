@@ -1,34 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class GradientButton extends StatelessWidget {
+  final RoundedLoadingButtonController _btnController;
   final String title;
   final int c1, c2;
   final Function f;
   final double width, height;
 
-  const GradientButton(
-      this.title, this.f, this.c1, this.c2, this.width, this.height);
+  const GradientButton(this.title, this.f, this.c1, this.c2, this.width,
+      this.height, this._btnController);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 50.0,
       child: Center(
-        child: RaisedButton(
+        child: RoundedLoadingButton(
+          color: Color(c1),
           onPressed: f,
-          padding: EdgeInsets.all(0.0),
+          controller: _btnController,
           child: Ink(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(5)),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                    color: Colors.grey.shade200,
-                    offset: Offset(2, 4),
-                    blurRadius: 5,
-                    spreadRadius: 2)
-              ],
               gradient: LinearGradient(
-                colors: [Color(c1), Color(c2)],
+                colors: [Color(c1), Color(c1)],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),

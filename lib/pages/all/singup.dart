@@ -3,6 +3,7 @@ import 'package:flu_link_short/ui/bezierContainer.dart';
 import 'package:flu_link_short/ui/gradient_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -11,6 +12,8 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   SignUpController signupController = Get.find();
+  final RoundedLoadingButtonController _btnController =
+      new RoundedLoadingButtonController();
   Widget _backButton() {
     return InkWell(
       onTap: () {
@@ -60,8 +63,16 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Widget _submitButton() {
     return GradientButton('Register Now', () {
-      signupController.register();
-    }, 0xfffbb448, 0xfff7892b, 250, 250);
+      signupController.register().then((value) async {
+        print(value);
+        if (value)
+          await _btnController.success();
+        else {
+          await _btnController.error();
+          _btnController.reset();
+        }
+      });
+    }, 0xfffbb448, 0xfff7892b, 250, 250, _btnController);
 
     /*Container(
       width: MediaQuery.of(context).size.width,

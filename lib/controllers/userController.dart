@@ -16,11 +16,12 @@ class UserController extends GetxController {
     tempPass = p;
   }
 
-  login() async {
+  Future<bool> login() async {
     user = await api.login(tempLogin, tempPass);
-    if (user.token?.isNotEmpty ?? true) {
-      return true;
+    if (user != null) {
+      print(user);
+      return Future<bool>.value(true);
     } else
-      return false;
+      return Future<bool>.value(false);
   }
 }

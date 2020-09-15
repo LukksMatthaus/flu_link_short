@@ -30,6 +30,7 @@ dependencies:
   http: 0.12.1
   form_field_validator: ^1.0.1
   mask_text_input_formatter: ^1.0.7
+  rounded_loading_button: ^1.0.13
 
 
   # The following adds the Cupertino Icons font to your application.
