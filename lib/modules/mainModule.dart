@@ -1,4 +1,5 @@
 import 'package:flu_link_short/pages/all/login.dart';
+import 'package:flu_link_short/pages/all/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -9,7 +10,7 @@ class InitialModule extends MainModule {
   List<Bind> get binds => [];
 
   @override
-  List<Router> get routers => [Router('/', child: (_, __) => Loginpage())];
+  List<Router> get routers => [Router('/', child: (_, __) => WelcomePage())];
 
   @override
   Widget get bootstrap => AppWidget();
