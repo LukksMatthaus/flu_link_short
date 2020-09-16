@@ -50,7 +50,7 @@ class _LinkRegisterPageState extends State<LinkRegisterPage> {
           .then((value) async {
         if (value == true) {
           await _btnController.success();
-          Get.back();
+          Get.back(result: 'success');
         } else {
           await _btnController.error();
           _btnController.reset();

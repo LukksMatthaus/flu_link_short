@@ -14,22 +14,18 @@ class SignUpController extends GetxController {
 
   setName(String n) {
     name = n;
-    print(name);
   }
 
   setEmail(String e) {
     email = e;
-    print(email);
   }
 
   setLogin(String l) {
     login = l;
-    print(login);
   }
 
   setPassword(String p) {
     password = p;
-    print(password);
   }
 
   Future<bool> register() async {
