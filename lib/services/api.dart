@@ -51,4 +51,52 @@ class API {
       throw Exception(e);
     }
   }
+
+  Future<Map<String, dynamic>> shrinkLink(String dest) async {
+    var body = {'destination': dest};
+    final header = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      'apikey': '5258083034ec4afa98a137df22b6fad8'
+    };
+    try {
+      final resp = await http.post('https://api.rebrandly.com/v1/links',
+          headers: header, body: jsonEncode(body));
+      Map<String, dynamic> respJson;
+      if (resp.statusCode == 200) {
+        respJson = json.decode(resp.body);
+        return respJson;
+      } else
+        return null;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<Map<String, dynamic>> registerLink(
+      String short, String original, String data, int idU, String token) async {
+    print("token: " + token);
+    var body = {
+      "curta": short,
+      "data": data,
+      "idUsuario": idU,
+      "original": original
+    };
+    final header = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      "Authorization": token
+    };
+    try {
+      final resp = await http.post(baseUrl + '/v1/url',
+          headers: header, body: jsonEncode(body));
+      Map<String, dynamic> respJson;
+      if (resp.statusCode == 201) {
+        respJson = json.decode(resp.body);
+        print(respJson);
+        return respJson;
+      } else
+        return null;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
