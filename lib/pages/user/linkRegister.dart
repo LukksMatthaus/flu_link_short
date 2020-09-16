@@ -43,12 +43,13 @@ class _LinkRegisterPageState extends State<LinkRegisterPage> {
   }
 
   Widget _submitButton() {
-    return GradientButton('Login', () {
+    return GradientButton('Shrink link!', () {
       linkController
           .registerLink(userController.user.id, userController.user.token)
           .then((value) async {
         if (value == true) {
           await _btnController.success();
+          Get.back();
         } else {
           await _btnController.error();
           _btnController.reset();

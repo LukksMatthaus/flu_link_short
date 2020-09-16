@@ -99,4 +99,25 @@ class API {
       throw Exception(e);
     }
   }
+
+  Future<List<dynamic>> getLinks(int id, String token) async {
+    final header = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      "Authorization": token
+    };
+    try {
+      final resp = await http.get(baseUrl + '/v1/url/listar/' + id.toString(),
+          headers: header);
+      List<dynamic> respJson;
+      if (resp.statusCode == 200) {
+        respJson = json.decode(resp.body);
+        return respJson;
+      } else {
+        print('entrou no else bro');
+        return null;
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
