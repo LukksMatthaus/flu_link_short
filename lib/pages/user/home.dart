@@ -1,5 +1,5 @@
 import 'package:flu_link_short/controllers/userController.dart';
-import 'package:flu_link_short/ui/bezierContainer.dart';
+import 'package:flu_link_short/ui/modal_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,15 +19,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     return Scaffold(
-        appBar: AppBar(
-          elevation: 2,
-          title: Text("Short Link"),
-          centerTitle: true,
-          backgroundColor: Color(0xfffbb448),
-          automaticallyImplyLeading: false,
-        ),
+        appBar: ModalAppBar(title: "Short Link", leading: false),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             _goToAddPage(context);
@@ -45,17 +38,14 @@ class _HomePageState extends State<HomePage> {
   _goToAddPage(BuildContext context) async {
     final result = await Get.toNamed('/registerLink');
 
-    //below you can get your result and update the view with setState
-    //changing the value if you want, i just wanted know if i have to
-    //update, and if is true, reload state
-
     if (result != null) {
       setState(() {});
     }
   }
 
   Widget buildList(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    final List<PopupMenuItem<int>> popupMenuItems = [];
+    popupMenuItems.add(PopupMenuItem<int>(value: 0, child: Text('Delete')));
     return FutureBuilder(
       future: userController.getLinks(),
       builder: (context, snapshot) {
@@ -117,6 +107,23 @@ class _HomePageState extends State<HomePage> {
                                   "Data de criação: ${userController.linkList.links[index].data}")
                             ],
                           ),
+                          trailing: popupMenuItems.isNotEmpty
+                              ? PopupMenuButton<int>(
+                                  onSelected: (value) {
+                                    switch (value) {
+                                      case 0:
+                                        deleteLink(userController
+                                            .linkList.links[index].id);
+                                        break;
+                                      default:
+                                    }
+                                  },
+                                  itemBuilder: (context) => popupMenuItems,
+                                )
+                              : Container(
+                                  height: 1,
+                                  width: 1,
+                                ),
                         );
                       },
                     ),
@@ -127,5 +134,22 @@ class _HomePageState extends State<HomePage> {
         }
       },
     );
+  }
+
+  deleteLink(int id) async {
+    Get.defaultDialog(
+        onConfirm: () {
+          userController.deleteLinks(id).then((value) {
+            setState(() {});
+          });
+          Get.back();
+        },
+        onCancel: () => print('cancelado'),
+        title: "Confirmação de remoção",
+        textConfirm: "Sim",
+        confirmTextColor: Colors.white,
+        radius: 6,
+        textCancel: "Não",
+        middleText: "Deseja realmente excluir esse link?");
   }
 }

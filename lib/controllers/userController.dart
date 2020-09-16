@@ -21,7 +21,6 @@ class UserController extends GetxController {
   Future<bool> login() async {
     user = await api.login(tempLogin, tempPass);
     if (user != null) {
-      print(user);
       return Future<bool>.value(true);
     } else
       return Future<bool>.value(false);
@@ -30,7 +29,14 @@ class UserController extends GetxController {
   Future<bool> getLinks() async {
     List<dynamic> lil = await api.getLinks(user.id, user.token);
     linkList = LinkList.fromJson(lil);
-    print(linkList);
     return Future<bool>.value(true);
+  }
+
+  Future<bool> deleteLinks(int id) async {
+    bool resp = await api.deleteLink(id, user.token);
+    if (resp)
+      return Future<bool>.value(true);
+    else
+      return Future<bool>.value(false);
   }
 }

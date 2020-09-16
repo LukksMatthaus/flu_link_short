@@ -43,7 +43,6 @@ class API {
       final resp = await http.post(baseUrl + '/v1/auth/login',
           headers: header, body: jsonEncode(body));
       if (resp.statusCode == 200) {
-        print(resp.body);
         return UserModel.fromJson(json.decode(resp.body));
       } else
         return null;
@@ -74,7 +73,6 @@ class API {
 
   Future<Map<String, dynamic>> registerLink(
       String short, String original, String data, int idU, String token) async {
-    print("token: " + token);
     var body = {
       "curta": short,
       "data": data,
@@ -91,7 +89,6 @@ class API {
       Map<String, dynamic> respJson;
       if (resp.statusCode == 201) {
         respJson = json.decode(resp.body);
-        print(respJson);
         return respJson;
       } else
         return null;
@@ -113,9 +110,25 @@ class API {
         respJson = json.decode(resp.body);
         return respJson;
       } else {
-        print('entrou no else bro');
         return null;
       }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<bool> deleteLink(int id, String token) async {
+    final header = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      "Authorization": token
+    };
+    try {
+      final resp = await http.delete(baseUrl + '/v1/url/' + id.toString(),
+          headers: header);
+      if (resp.statusCode == 200) {
+        return Future<bool>.value(true);
+      } else
+        return Future<bool>.value(false);
     } catch (e) {
       throw Exception(e);
     }

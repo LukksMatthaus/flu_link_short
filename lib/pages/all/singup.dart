@@ -64,7 +64,6 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _submitButton() {
     return GradientButton('Register Now', () {
       signupController.register().then((value) async {
-        print(value);
         if (value)
           await _btnController.success();
         else {
@@ -73,29 +72,6 @@ class _SignUpPageState extends State<SignUpPage> {
         }
       });
     }, 0xfffbb448, 0xfff7892b, 250, 250, _btnController);
-
-    /*Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(vertical: 15),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.grey.shade200,
-                offset: Offset(2, 4),
-                blurRadius: 5,
-                spreadRadius: 2)
-          ],
-          gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [Color(0xfffbb448), Color(0xfff7892b)])),
-      child: Text(
-        'Register Now',
-        style: TextStyle(fontSize: 20, color: Colors.white),
-      ),
-    ); */
   }
 
   Widget _loginAccountLabel() {

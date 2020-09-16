@@ -18,9 +18,6 @@ class LinkRegisterController extends GetxController {
           data: DateTime.now().toUtc().toIso8601String(),
           shortLink: 'https://' + temp['shortUrl'],
           original: dest);
-      print(link.data);
-      print(link.shortLink);
-      print(link.original);
 
       var temp2 = await api.registerLink(
           link.shortLink, link.original, link.data, id, token);

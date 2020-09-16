@@ -1,6 +1,7 @@
 import 'package:flu_link_short/controllers/linkRegisterController.dart';
 import 'package:flu_link_short/controllers/userController.dart';
 import 'package:flu_link_short/ui/gradient_button.dart';
+import 'package:flu_link_short/ui/modal_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
@@ -62,15 +63,11 @@ class _LinkRegisterPageState extends State<LinkRegisterPage> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Link Registration"),
-        centerTitle: true,
-        backgroundColor: Color(0xfffbb448),
-        elevation: 2,
-      ),
+      appBar: ModalAppBar(title: 'Link Registration', leading: true),
       body: SingleChildScrollView(
           child: Container(
         height: height,
+        margin: EdgeInsets.only(left: 10),
         child: Column(
           children: [
             SizedBox(height: 50),
